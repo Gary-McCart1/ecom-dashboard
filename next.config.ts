@@ -1,7 +1,17 @@
-import type { NextConfig } from "next";
+// next.config.ts
 
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    domains: [
+      "saloonsurf.com",
+      "www.doomswell.com",
+      "surftech.com",
+      "www.formulafunboards.com",
+      "www.zapskimboards.com"
+    ],
+  },
 };
 
 export default nextConfig;
+
