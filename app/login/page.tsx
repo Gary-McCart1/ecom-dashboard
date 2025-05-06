@@ -13,28 +13,25 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
 
     try {
       const res = await fetch("http://localhost:8000/api/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          
         },
-        body: JSON.stringify({ username, password }), // or username, depending on Django setup
-        credentials: "include", // Important if your cookie is HTTP-only
+        credentials: "include", // This ensures the cookie is stored
+        body: JSON.stringify({ username, password }),
       });
 
       if (!res.ok) {
         setError("Invalid credentials");
         return;
       }
-      if (res.ok) {
-        setIsAuthenticated(true); // <--- THIS
-        router.push("/");
-      }
 
-      router.push("/"); // redirect to dashboard or home
+      setIsAuthenticated(true);
+      router.push("/"); // Dashboard/home
     } catch (err) {
       setError("Login failed");
       console.error(err);
