@@ -173,14 +173,14 @@ const ProductPage = () => {
         {showSaveToast && (
           <Toast
             color="green"
-            message="Product updated successfully!"
+            message="Order updated successfully!"
             onClose={() => setShowSaveToast(false)}
           />
         )}
         {showDeleteToast && (
           <Toast
             color="red"
-            message="Product successfully deleted!"
+            message="Order successfully deleted!"
             onClose={() => setShowDeleteToast(false)}
           />
         )}
