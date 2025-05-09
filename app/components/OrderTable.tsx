@@ -15,7 +15,7 @@ const OrderTable = () => {
 
   // Use useCallback to prevent the fetchOrders function from being recreated on every render
   const fetchOrders = useCallback(
-    async (url = "http://localhost:8000/api/orders/") => {
+    async (url = "https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/") => {
       try {
         setLoading(true);
         const params: { [key: string]: string } = {

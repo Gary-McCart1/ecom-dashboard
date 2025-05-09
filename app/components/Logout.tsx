@@ -11,7 +11,7 @@ const Logout = () => {
   const handleLogout = async () => {
     try {
       // Call the logout API endpoint
-      const res = await fetch("http://localhost:8000/api/logout/", {
+      const res = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/logout/", {
         method: "POST",
         credentials: "include", // Send cookies with the request
       });

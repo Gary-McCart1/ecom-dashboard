@@ -22,31 +22,46 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const verify = async () => {
+      const storedAuth = localStorage.getItem("isAuthenticated");
+
+      if (storedAuth === "true") {
+        setIsAuthenticated(true);
+        setLoading(false);
+        return;
+      }
+
       try {
-        const res = await fetch("http://localhost:8000/api/verify/", {
-          method: "GET",
-          credentials: "include",
-        });
+        const res = await fetch(
+          "https://foamhead-a8f24bda0c5b.herokuapp.com/api/verify/",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
 
         if (!res.ok) {
           // Token invalid, so redirect to login
           setIsAuthenticated(false);
-          router.push("/login"); // Redirect to login
+          localStorage.setItem("isAuthenticated", "false");
+          router.push("/login");
         } else {
           // Token is valid
           setIsAuthenticated(true);
+          localStorage.setItem("isAuthenticated", "true");
         }
       } catch (err) {
         console.error("Auth init error:", err);
         setIsAuthenticated(false);
-        router.push("/login"); // Redirect to login on error
+        localStorage.setItem("isAuthenticated", "false");
+        router.push("/login");
       } finally {
         setLoading(false);
       }
     };
 
     verify();
-  }, [router]); // This only runs once on mount
+  }, [router]);
+  // This only runs once on mount
 
   if (loading) {
     return <Loading />;

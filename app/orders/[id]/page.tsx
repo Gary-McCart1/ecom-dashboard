@@ -37,7 +37,7 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       const orderResponse = await fetch(
-        `http://localhost:8000/api/orders/${id}`
+        `https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${id}`
       );
       if (!orderResponse.ok) {
         console.error("Failed to fetch message", orderResponse.status);
@@ -69,7 +69,7 @@ const ProductPage = () => {
 
     const fetchOrderItems = async () => {
       const itemResponse = await fetch(
-        `http://localhost:8000/api/orderitems/${id}/`
+        `https://foamhead-a8f24bda0c5b.herokuapp.com/api/orderitems/${id}/`
       );
       if (!itemResponse.ok) {
         console.error("Failed to fetch message", itemResponse.status);
@@ -105,7 +105,7 @@ const ProductPage = () => {
     );
     if (!confirmed) return;
     try {
-      const response = await fetch(`http://localhost:8000/api/orders/${id}/`, {
+      const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${id}/`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -127,7 +127,7 @@ const ProductPage = () => {
   const handleEditOrder = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const confirmed = window.confirm(
-      "Are you sure you want to edit this product?"
+      "Are you sure you want to edit this order?"
     );
     console.log(id);
     if (!confirmed) return;
@@ -141,11 +141,11 @@ const ProductPage = () => {
       status,
       shippingMethod,
       trackingNumber,
-      products: products,
+      products: products.map((p) => p.id),
       total: Number(total) || 0,
     };
     try {
-      const response = await fetch(`http://localhost:8000/api/orders/${id}/`, {
+      const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${id}/`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",

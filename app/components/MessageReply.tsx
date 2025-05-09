@@ -19,7 +19,7 @@ const MessageReply = ({ id, setToggleReply }: Props) => {
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        const response = await fetch(`/api/messages/${id}`);
+        const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/messages/${id}`);
         if (!response.ok) {
           return;
         }

@@ -50,7 +50,7 @@ const AddProductPage = () => {
     };
     console.log(JSON.stringify(newProduct));
     try {
-      const response = await fetch(`http://localhost:8000/api/products/`, {
+      const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/`, {
         method: "POST",
         credentials: "include",
         headers: {

@@ -8,10 +8,10 @@ import Loading from "../loading";
 
 const countProductOrders = (orders: Order[], products: Product[]) => {
   const counts: { [key: string]: { count: number; id: number } } = {};
-  
+
   orders.forEach((order) => {
-    order.products.forEach((orderedProduct) => {
-      const product = products.find((p) => p.name === orderedProduct.name);
+    order.products.forEach((productId) => {
+      const product = products.find((p) => p.id === productId);
       if (!product) return;
 
       if (!counts[product.name]) {
@@ -39,15 +39,15 @@ const TopProductsBlock = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const orderResponse = await fetch("http://localhost:8000/api/orders");
+        const orderResponse = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/");
         const orderData = await orderResponse.json();
-
-        const productResponse = await fetch("http://localhost:8000/api/products");
+        const productResponse = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/");
         const productData = await productResponse.json();
         setProducts(productData.results);
 
         const ordersByProduct = countProductOrders(orderData.results, productData.results);
         setTopProducts(ordersByProduct.slice(0, 3));
+
       } catch (error) {
         console.log(error);
       } finally{

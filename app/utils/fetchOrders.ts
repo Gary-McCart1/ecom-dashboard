@@ -2,7 +2,7 @@ import { Order } from "../types/order";
 
 async function fetchAllOrders() {
     let allOrders: Order[] = [];
-    let nextUrl: string | null = "http://localhost:8000/api/orders";
+    let nextUrl: string | null = "https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/";
   
     try {
       while (nextUrl) {

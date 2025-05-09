@@ -18,7 +18,7 @@ const UpdateOrder = ({ currentStatus, onUpdateStatus }: Props) => {
           <option value="Shipped">Shipped</option>
           <option value="Delivered">Delivered</option>
           <option value="Pending">Pending</option>
-          <option value="Canceled">Canceled</option>
+          <option value="Cancelled">Cancelled</option>
         </select>
       </form>
     </div>

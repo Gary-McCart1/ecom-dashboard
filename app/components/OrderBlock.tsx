@@ -9,7 +9,7 @@ const OrderBlock = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/orders");
+        const response = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/");
         const data = await response.json();
         setOrderCount(data.count);
       } catch (error) {

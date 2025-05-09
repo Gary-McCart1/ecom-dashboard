@@ -22,7 +22,7 @@ const MessagesBlock = () => {
   useEffect(() => {
     const fetchmessagess = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/messages/");
+        const response = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/messages/");
         const data = await response.json();
         const unreadMessageCount = countUnred(data.results);
         setUnread(unreadMessageCount);

@@ -17,7 +17,7 @@ const ProductTable = () => {
         };
 
         const response = await axios.get(
-          "http://localhost:8000/api/products/",
+          "https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/",
           {
             params,
           }

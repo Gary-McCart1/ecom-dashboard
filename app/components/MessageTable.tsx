@@ -11,7 +11,7 @@ const MessageTable = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/messages/");
+        const response = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/messages/");
         const data = await response.json();
         setMessages(data.results);
       } catch (error) {

@@ -31,7 +31,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const response = await fetch(`http://localhost:8000/api/products/${id}`);
+      const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/${id}`);
       if (!response.ok) {
         console.error("Failed to fetch message", response.status);
         return;
@@ -71,7 +71,7 @@ const ProductPage = () => {
   const handleDeleteProduct = async() => {
     console.log("Deleted product")
     try {
-      const response = await fetch(`http://localhost:8000/api/products/${id}/`, {
+      const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/${id}/`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -114,7 +114,7 @@ const ProductPage = () => {
       images: images,
     };
     try {
-      const response = await fetch(`http://localhost:8000/api/products/${id}/`, {
+      const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/${id}/`, {
         method: "PUT",
         credentials: "include",
         headers: {

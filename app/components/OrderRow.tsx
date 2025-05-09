@@ -5,10 +5,22 @@ import { Order } from "../types/order";
 import UpdateOrder from "./UpdateOrder";
 import StatusBadge from "./StatusBadge";
 import Link from "next/link";
+import getCookie from "../utils/getCookie";
 
 interface Props {
   orderId: number;
 }
+
+const csrfToken = getCookie("csrftoken");
+
+const headers: Record<string, string> = {
+  "Content-Type": "application/json",
+};
+
+if (csrfToken) {
+  headers["X-CSRFToken"] = csrfToken;
+}
+
 
 const OrderRow = ({ orderId }: Props) => {
   const [order, setOrder] = useState<Order | null>(null);
@@ -16,7 +28,7 @@ const OrderRow = ({ orderId }: Props) => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/orders/${orderId}`);
+        const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${orderId}`);
         if (!response.ok) return;
 
         const text = await response.text();
@@ -42,12 +54,10 @@ const OrderRow = ({ orderId }: Props) => {
     setOrder(updatedOrder); // Optimistic update
 
     try {
-      const res = await fetch(`http://localhost:8000/api/orders/${order.id}/`, {
+      const res = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${order.id}/`, {
         method: "PUT",
         credentials: "include",
-        headers: {
-          "Content-type": "application/json",
-        },
+        headers,
         body: JSON.stringify( updatedOrder ),
       });
       if (!res.ok) {

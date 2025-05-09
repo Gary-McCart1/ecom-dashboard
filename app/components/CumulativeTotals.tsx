@@ -16,7 +16,7 @@ const CumulativeTotals = () => {
   useEffect(() => {
     const fetchStats = async () => {
       const response = await fetch(
-        "http://localhost:8000/api/cumulative-monthly-stats/"
+        "https://foamhead-a8f24bda0c5b.herokuapp.com/api/cumulative-monthly-stats/"
       );
       const data = await response.json();
       setChartData(data);

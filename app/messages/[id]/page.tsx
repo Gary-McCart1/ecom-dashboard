@@ -13,7 +13,7 @@ const MessagePage = () => {
 
   useEffect(() => {
     const fetchMessage = async () => {
-      const response = await fetch(`http://localhost:8000/api/messages/${id}/`);
+      const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/messages/${id}/`);
 
       // Make sure there's actually something in the response
       if (!response.ok) {

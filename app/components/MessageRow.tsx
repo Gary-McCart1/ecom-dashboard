@@ -21,7 +21,7 @@ const messageRow = ({ message }: Props) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/messages/${message.id}/`,
+        `https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${message.id}/`,
         {
           method: "PUT",
           credentials: "include",

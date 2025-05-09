@@ -16,7 +16,7 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:8000/api/login/", {
+      const res = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
