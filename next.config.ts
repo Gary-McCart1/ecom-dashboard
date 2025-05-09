@@ -8,7 +8,8 @@ const nextConfig = {
       "www.doomswell.com",
       "surftech.com",
       "www.formulafunboards.com",
-      "www.zapskimboards.com"
+      "www.zapskimboards.com",
+      "drive.google.com"
     ],
   },
 };

@@ -28,7 +28,9 @@ const ProductCard = ({ item }: Props) => {
           <p>Rating: {item.product.rating}/5.0</p>
           <p>Quantity: {item.quantity}</p>
           <p>Price: ${item.product.price}</p>
-          <p>Description: {item.product.description.substring(0, 150)}...</p>
+          <p dangerouslySetInnerHTML={{
+                __html: item.product.description.substring(0, 150) + "...",
+              }}></p>
           <div className="card-actions justify-end">
             <Link href={`/products/${item.product.id}`}>
               <button className="btn btn-black">View Product</button>
