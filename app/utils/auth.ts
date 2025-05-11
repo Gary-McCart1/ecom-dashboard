@@ -24,18 +24,23 @@ export async function loginUser(username: string, password: string): Promise<boo
 }
 
 export async function logoutUser(): Promise<boolean> {
+    const accessToken = getAccessToken();
+    console.log("Access Token for Logout:", accessToken);
     const refreshToken = getRefreshToken();
-    if (!refreshToken) {
-        console.log("No refresh token found")
+
+    if (!accessToken) {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
         localStorage.removeItem(REFRESH_TOKEN_KEY);
-        return true; // Consider it successful if no refresh token to invalidate
+        return true; // Consider it successful if no token to send
     }
 
     try {
-        const response = await fetch('https://foamhead-a8f24bda0c5b.herokuapp.com/api/logout/', {
+        const response = await fetch('/api/logout/', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`, // Ensure this line is present
+            },
             body: JSON.stringify({ refresh_token: refreshToken }),
         });
 
@@ -47,13 +52,13 @@ export async function logoutUser(): Promise<boolean> {
             console.error('Logout failed:', response.status);
             localStorage.removeItem(ACCESS_TOKEN_KEY);
             localStorage.removeItem(REFRESH_TOKEN_KEY);
-            return false; // Indicate logout failure
+            return false;
         }
     } catch (error) {
         console.error('Logout error:', error);
         localStorage.removeItem(ACCESS_TOKEN_KEY);
         localStorage.removeItem(REFRESH_TOKEN_KEY);
-        return false; // Indicate logout failure
+        return false;
     }
 }
 
