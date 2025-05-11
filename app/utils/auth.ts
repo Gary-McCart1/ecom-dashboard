@@ -26,6 +26,7 @@ export async function loginUser(username: string, password: string): Promise<boo
 export async function logoutUser(): Promise<boolean> {
     const refreshToken = getRefreshToken();
     if (!refreshToken) {
+        console.log("No refresh token found")
         localStorage.removeItem(ACCESS_TOKEN_KEY);
         localStorage.removeItem(REFRESH_TOKEN_KEY);
         return true; // Consider it successful if no refresh token to invalidate

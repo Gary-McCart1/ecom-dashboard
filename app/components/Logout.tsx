@@ -1,31 +1,19 @@
 "use client";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { TbLogout2 } from "react-icons/tb";
 import { useAuth } from "../context/AuthContext";
 
 const Logout = () => {
-  const router = useRouter();
-  const { setIsAuthenticated } = useAuth();
+  const { logout } = useAuth(); // Use the logout function from the context
 
   const handleLogout = async () => {
-    try {
-      // Call the logout API endpoint
-      const res = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/logout/", {
-        method: "POST",
-        credentials: "include", // Send cookies with the request
-      });
-
-      if (res.ok) {
-        // On successful logout, reset the authentication state
-        setIsAuthenticated(false);
-        // Redirect to login page after logout
-        router.push("/login");
-      } else {
-        console.error("Logout failed:", res.statusText);
-      }
-    } catch (err) {
-      console.error("Logout error:", err);
+    const success = await logout();
+    if (success) {
+      // The logout function in AuthContext handles state update and redirection
+      console.log("Logout successful");
+    } else {
+      console.error("Logout failed");
+      // Optionally display an error message to the user
     }
   };
 
