@@ -5,7 +5,7 @@ const REFRESH_TOKEN_KEY = 'refreshToken';
 
 export async function loginUser(username: string, password: string): Promise<boolean> {
     try {
-        const response = await fetch('/api/login/', {
+        const response = await fetch('https://foamhead-a8f24bda0c5b.herokuapp.com/api/login/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
@@ -33,7 +33,7 @@ export async function logoutUser(): Promise<boolean> {
     }
 
     try {
-        const response = await fetch('/api/logout/', {
+        const response = await fetch('https://foamhead-a8f24bda0c5b.herokuapp.com/api/logout/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ refresh_token: refreshToken }),
@@ -72,7 +72,7 @@ export async function refreshToken(): Promise<string | null> {
     }
 
     try {
-        const response = await fetch('/api/token/refresh/', {
+        const response = await fetch('https://foamhead-a8f24bda0c5b.herokuapp.com/api/token/refresh/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ refresh: refreshToken }),
