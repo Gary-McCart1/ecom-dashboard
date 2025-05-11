@@ -9,32 +9,18 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-  const { setIsAuthenticated } = useAuth();
+  const { login } = useAuth(); // Use the login function from the context
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    try {
-      const res = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // This ensures the cookie is stored
-        body: JSON.stringify({ username, password }),
-      });
+    const success = await login(username, password);
 
-      if (!res.ok) {
-        setError("Invalid credentials");
-        return;
-      }
-
-      setIsAuthenticated(true);
+    if (success) {
       router.push("/"); // Dashboard/home
-    } catch (err) {
-      setError("Login failed");
-      console.error(err);
+    } else {
+      setError("Invalid credentials");
     }
   };
 

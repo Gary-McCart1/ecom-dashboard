@@ -1,79 +1,89 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // Add this import for routing
+import { useRouter } from "next/navigation";
 import Loading from "../loading";
+import { getAccessToken} from "../utils/auth"; // Import only necessary auth utility functions
 
 interface AuthContextType {
-  isAuthenticated: boolean;
-  loading: boolean;
-  setIsAuthenticated: (auth: boolean) => void;
+    isAuthenticated: boolean;
+    loading: boolean;
+    login: (username: string, password: string) => Promise<boolean>;
+    logout: () => Promise<boolean>; // Updated logout to return a promise
+    refresh: () => Promise<string | null>;
+    setIsAuthenticated: (auth: boolean) => void; // Consider removing this if state is managed internally
 }
 
 const AuthContext = createContext<AuthContextType>({
-  isAuthenticated: false,
-  loading: true,
-  setIsAuthenticated: () => {},
+    isAuthenticated: false,
+    loading: true,
+    login: async () => false,
+    logout: async () => false, // Updated logout to return a promise
+    refresh: async () => null,
+    setIsAuthenticated: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter(); // Using router for redirect
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const router = useRouter();
 
-  useEffect(() => {
-    const verify = async () => {
-      const storedAuth = localStorage.getItem("isAuthenticated");
-
-      if (storedAuth === "true") {
-        setIsAuthenticated(true);
+    const login = async (username: string, password: string): Promise<boolean> => {
+        setLoading(true);
+        const success = await (await import("../utils/auth")).loginUser(username, password);
         setLoading(false);
-        return;
-      }
-
-      try {
-        const res = await fetch(
-          "https://foamhead-a8f24bda0c5b.herokuapp.com/api/verify/",
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-
-        if (!res.ok) {
-          // Token invalid, so redirect to login
-          setIsAuthenticated(false);
-          localStorage.setItem("isAuthenticated", "false");
-          router.push("/login");
-        } else {
-          // Token is valid
-          setIsAuthenticated(true);
-          localStorage.setItem("isAuthenticated", "true");
+        if (success) {
+            setIsAuthenticated(true);
+            return true;
         }
-      } catch (err) {
-        console.error("Auth init error:", err);
-        setIsAuthenticated(false);
-        localStorage.setItem("isAuthenticated", "false");
-        router.push("/login");
-      } finally {
-        setLoading(false);
-      }
+        return false;
     };
 
-    verify();
-  }, [router]);
-  // This only runs once on mount
+    const logout = async (): Promise<boolean> => {
+        setLoading(true);
+        const success = await (await import("../utils/auth")).logoutUser();
+        setLoading(false);
+        setIsAuthenticated(false);
+        router.push("/login");
+        return success;
+    };
 
-  if (loading) {
-    return <Loading />;
-  }
+    const refresh = async (): Promise<string | null> => {
+        const newToken = await (await import("../utils/auth")).refreshToken();
+        if (newToken) {
+            setIsAuthenticated(true);
+        } else {
+            setIsAuthenticated(false);
+            router.push("/login"); // Redirect if refresh fails
+        }
+        return newToken;
+    };
 
-  return (
-    <AuthContext.Provider
-      value={{ isAuthenticated, loading, setIsAuthenticated }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+    useEffect(() => {
+        const checkAuthOnLoad = async () => {
+            setLoading(true);
+            const token = getAccessToken();
+            if (token) {
+                // Consider a lightweight check if the token exists,
+                // the backend will handle the actual verification on protected routes.
+                setIsAuthenticated(true);
+            } else {
+                setIsAuthenticated(false);
+            }
+            setLoading(false);
+        };
+
+        checkAuthOnLoad();
+    }, [router]);
+
+    if (loading) {
+        return <Loading />;
+    }
+
+    return (
+        <AuthContext.Provider value={{ isAuthenticated, loading, login, logout, refresh, setIsAuthenticated }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export const useAuth = () => useContext(AuthContext);
