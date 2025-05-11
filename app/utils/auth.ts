@@ -35,7 +35,7 @@ export async function logoutUser(): Promise<boolean> {
     }
 
     try {
-        const response = await fetch('/api/logout/', {
+        const response = await fetch('https://foamhead-a8f24bda0c5b.herokuapp.com/api/logout/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
