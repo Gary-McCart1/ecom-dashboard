@@ -9,6 +9,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.png" />
+      </head>
       <body className="bg-zinc-50 text-zinc-950 h-screen flex">
         <AuthProvider>
           <Sidebar />

@@ -42,11 +42,12 @@ const TopProductsBlock = () => {
           "https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/"
         );
         const orderData = await orderResponse.json();
-
+        console.log(orderData.results)
         const productResponse = await fetch(
           "https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/"
         );
         const productData = await productResponse.json();
+        console.log(productData.results)
         setProducts(productData.results);
 
         const ordersByProduct = countProductOrders(
@@ -57,12 +58,11 @@ const TopProductsBlock = () => {
       } catch (error) {
         console.log(error);
       } finally {
-        console.log(topProducts)
         setLoading(false);
       }
     };
     fetchOrders();
-  }, [topProducts]);
+  }, []);
 
   if (loading) return <Loading />;
 
