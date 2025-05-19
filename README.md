@@ -1,6 +1,6 @@
 # 🧾 E-commerce Dashboard Frontend (Next.js + Tailwind CSS)
 
-Website URL: https://ecom-dashboard-git-new-main-garys-projects-0f4d54e0.vercel.app/
+Website URL: https://ecom-dashboard-pi.vercel.app/
 
 Youtube Demo Link: 
 
