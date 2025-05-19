@@ -55,3 +55,4 @@ Use the following test credentials to explore the dashboard:
 
 ## 📬 Contact Info
 - Email: Gary McCart
+- Backend Github link: https://github.com/Gary-McCart1/ecom-backend
