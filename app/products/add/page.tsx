@@ -8,6 +8,7 @@ import React, { useState } from "react";
 
 const AddProductPage = () => {
   const [title, setTitle] = useState("");
+  const [cogs, setCogs] = useState("0")
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState(0);
   const [description, setDescription] = useState("");
@@ -45,6 +46,7 @@ const AddProductPage = () => {
       images: images,
       price: Number(price),
       originalPrice: Number(originalPrice),
+      cogs: Number(cogs)
     };
     try {
       const accessToken = getAccessToken()
@@ -102,7 +104,7 @@ const AddProductPage = () => {
         >
           <div className=" border-red-100">
             <div className="flex w-full">
-              <div className="flex-col pr-25">
+              <div className="flex-col w-3/4 pr-25">
                 <label>
                   <strong>Title</strong>
                 </label>
@@ -110,6 +112,17 @@ const AddProductPage = () => {
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}
                   placeholder="Product Name"
+                  className="bg-white w-full my-2.5 rounded-lg p-1"
+                />
+              </div>
+              <div className="flex-col w-1/4 pr-25">
+                <label>
+                  <strong>COGS</strong>
+                </label>
+                <input
+                  onChange={(e) => setCogs(e.target.value)}
+                  value={cogs}
+                  placeholder="Cost of goods sold"
                   className="bg-white w-full my-2.5 rounded-lg p-1"
                 />
               </div>
