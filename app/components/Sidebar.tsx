@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import { IoHomeOutline } from "react-icons/io5";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
@@ -10,6 +11,7 @@ import Logout from "./Logout";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Image from "next/image";
 
 const Sidebar = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -23,36 +25,42 @@ const Sidebar = () => {
 
   if (loading || !isAuthenticated) return;
 
-
   return (
-    <div className="w-60 h-screen border-solid bg-slate-900 flex flex-col items-center justify-evenly text-xl font-extralight text-zinc-50 rounded-r-lg text-thin">
-      <div className="flex justify-center w-95/100 h-12 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg focus">
-        <Link href="/" className="flex w-5/8 items-center">
-          <IoHomeOutline className="text-left mr-5 text-3xl" />
+    <div className="w-60 h-screen bg-slate-900 flex flex-col items-center justify-evenly text-xl font-extralight text-zinc-50 rounded-r-lg">
+      
+      {/* Logo & Home */}
+      <div className="flex items-center w-full px-4 py-4 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg space-x-4">
+        <Image
+          src="/white-logo.png"
+          alt="Logo"
+          width={32}
+          height={32}
+          className="object-contain"
+        />
+        <Link href="/" className="flex items-center text-lg font-light">
+          <IoHomeOutline className="mr-3 text-2xl" />
           Home
         </Link>
       </div>
-      <div className="w-60 h-2/5 flex flex-col items-center justify-around">
-        <div className="flex justify-center w-95/100 h-12 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg">
-          <Link href="/orders" className="flex w-5/8 items-center">
-            <GoPackageDependents className="text-left mr-5 text-3xl" />
-            Orders
-          </Link>
-        </div>
-        <div className="flex justify-center w-95/100 h-12 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg">
-          <Link href="/products" className="flex w-5/8 items-center">
-            <HiOutlineShoppingBag className="text-left mr-5 text-3xl" />
-            Products
-          </Link>
-        </div>
-        <div className="flex justify-center w-95/100 h-12 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg">
-          <Link href="/messages" className="flex w-5/8 items-center">
-            <MdOutlineMarkEmailUnread className="text-left mr-5 text-3xl" />
-            Messages
-          </Link>
-        </div>
+
+      {/* Main Links */}
+      <div className="w-full flex flex-col items-center space-y-2">
+        <Link href="/orders" className="flex items-center w-full px-4 py-3 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg">
+          <GoPackageDependents className="mr-4 text-2xl" />
+          Orders
+        </Link>
+        <Link href="/products" className="flex items-center w-full px-4 py-3 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg">
+          <HiOutlineShoppingBag className="mr-4 text-2xl" />
+          Products
+        </Link>
+        <Link href="/messages" className="flex items-center w-full px-4 py-3 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg">
+          <MdOutlineMarkEmailUnread className="mr-4 text-2xl" />
+          Messages
+        </Link>
       </div>
-      <div className="flex justify-center w-95/100 h-12 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg">
+
+      {/* Logout */}
+      <div className="w-full px-4 py-3 hover:bg-slate-50 hover:text-slate-900 hover:rounded-lg">
         <Logout />
       </div>
     </div>
