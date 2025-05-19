@@ -57,11 +57,12 @@ const TopProductsBlock = () => {
       } catch (error) {
         console.log(error);
       } finally {
+        console.log(topProducts)
         setLoading(false);
       }
     };
     fetchOrders();
-  }, []);
+  }, [topProducts]);
 
   if (loading) return <Loading />;
 
