@@ -315,7 +315,7 @@ const ProductPage = () => {
                   Total: ${total}
                 </h3>
               </div>
-              {orderItems.map((item, index) => (
+              {(orderItems ?? []).map((item, index) => (
                 <ProductCard key={index} item={item} />
               ))}
             </div>
