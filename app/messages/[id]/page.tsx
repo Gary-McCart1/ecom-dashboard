@@ -40,7 +40,8 @@ const MessagePage = () => {
     <div className="m-20">
       <div className="flex items-center justify-between">
         <h1 className="text-4xl font-bold">Message</h1>
-        <button className="btn" onClick={() => {setToggleReply(!toggleReply)}}>Reply</button>
+        {/* TODO */}
+        {/* <button className="btn" onClick={() => {setToggleReply(!toggleReply)}}>Reply</button> */}
       </div>
       {message ? (
         <div className="my-10 bg-gray-100 p-5 rounded-lg">
