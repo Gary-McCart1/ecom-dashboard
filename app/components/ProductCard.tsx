@@ -2,6 +2,7 @@ import React from "react";
 import { OrderItem } from "../types/orderItems";
 import Image from "next/image";
 import Link from "next/link";
+import Loading from "../loading";
 
 interface Props {
   item: OrderItem;
@@ -9,12 +10,15 @@ interface Props {
 
 const ProductCard = ({ item }: Props) => {
 
+  if (!item) return <Loading />
+  const imageUrl = item.product?.images[0]?.url ?? "";
+
   return (
     <div className="my-10">
       <div className="card card-side bg-white shadow-sm">
         <figure>
           <Image
-            src={item.product.images[0].url || ""}
+            src={imageUrl}
             width={100}
             height={100}
             alt="Movie"
