@@ -10,11 +10,12 @@ import { getAccessToken } from "@/app/utils/auth";
 
 const ProductPage = () => {
   const [product, setProduct] = useState<Product>();
-  const [rating, setRating] = useState(0)
+  const [cogs, setCogs] = useState("0");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState(0);
   const [description, setDescription] = useState("");
+  const [rating, setRating] = useState("")
   const [images, setImages] = useState([
     { url: "" }, // Default image structure
   ]);
@@ -44,6 +45,7 @@ const ProductPage = () => {
       }
       try {
         const data = JSON.parse(text);
+        setRating(data.rating)
         setProduct(data);
         setTitle(data.name);
         setCategory(data.category);
@@ -51,7 +53,7 @@ const ProductPage = () => {
         setDescription(data.description);
         setImages(data.images);
         setPrice(data.price);
-        setRating(data.rating)
+        setCogs(data.cogs)
         setOriginalPrice(data.originalPrice);
       } catch (err) {
         console.error("Invalid JSON:", err);
@@ -104,14 +106,15 @@ const ProductPage = () => {
     if (!confirmed) return;
     const updated = {
       id: Number(id),
+      rating: Number(rating),
       name: title,
       category,
       stock,
       description,
       price: parseFloat(price) || 0,
       originalPrice: parseFloat(originalPrice) || 0,
-      rating: product?.rating ?? 4,
       images: images,
+      cogs: Number(cogs)
     };
     try {
       const accessToken = getAccessToken()
@@ -183,13 +186,13 @@ const ProductPage = () => {
               </div>
               <div className="flex-col w-1/5">
                 <label>
-                  <strong>Rating</strong>
+                  <strong>COGS</strong>
                 </label>
                 <input
                   type="number"
-                  onChange={(e) => setRating(Number(e.target.value))}
-                  value={rating}
-                  placeholder="Rating"
+                  onChange={(e) => setCogs(e.target.value)}
+                  value={cogs}
+                  placeholder="Cost of Goods Sold"
                   className="bg-white w-full my-2.5 rounded-lg p-1"
                 />
               </div>
