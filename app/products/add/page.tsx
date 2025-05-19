@@ -8,7 +8,6 @@ import React, { useState } from "react";
 
 const AddProductPage = () => {
   const [title, setTitle] = useState("");
-  const [rating, setRating] = useState(0);
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState(0);
   const [description, setDescription] = useState("");
@@ -46,10 +45,10 @@ const AddProductPage = () => {
       images: images,
       price: Number(price),
       originalPrice: Number(originalPrice),
-      rating: rating,
     };
     try {
       const accessToken = getAccessToken()
+      console.log(JSON.stringify(newProduct, null, 2))
       const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/`, {
         method: "POST",
         credentials: "include",
@@ -103,7 +102,7 @@ const AddProductPage = () => {
         >
           <div className=" border-red-100">
             <div className="flex w-full">
-              <div className="flex-col w-3/4 pr-25">
+              <div className="flex-col pr-25">
                 <label>
                   <strong>Title</strong>
                 </label>
@@ -111,18 +110,6 @@ const AddProductPage = () => {
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}
                   placeholder="Product Name"
-                  className="bg-white w-full my-2.5 rounded-lg p-1"
-                />
-              </div>
-              <div className="flex-col w-1/5">
-                <label>
-                  <strong>Rating</strong>
-                </label>
-                <input
-                  type="number"
-                  onChange={(e) => setRating(Number(e.target.value))}
-                  value={rating}
-                  placeholder="Rating"
                   className="bg-white w-full my-2.5 rounded-lg p-1"
                 />
               </div>
