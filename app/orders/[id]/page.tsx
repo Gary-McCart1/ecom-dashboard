@@ -56,7 +56,12 @@ const ProductPage = () => {
         setEmail(data.email);
         setAddress(data.address);
         setPhone(data.phone);
-        setDate(data.date.split("T")[0]);
+        if (data.date) {
+          setDate(data.date.split("T")[0]);
+        } else {
+          console.warn("Order date is missing:", data);
+        }
+
         setStatus(data.status);
         setShippingMethod(data.shippingMethod);
         setTrackingNumber(data.trackingNumber);
@@ -105,15 +110,18 @@ const ProductPage = () => {
     );
     if (!confirmed) return;
     try {
-      const accessToken = getAccessToken()
-      const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${id}/`, {
-        method: "DELETE",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json",
-          'Authorization': `Bearer ${accessToken}`
-        },
-      });
+      const accessToken = getAccessToken();
+      const response = await fetch(
+        `https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${id}/`,
+        {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       if (response.ok) {
         setShowDeleteToast(true);
         setToggleSave(false);
@@ -146,15 +154,18 @@ const ProductPage = () => {
       total: Number(total) || 0,
     };
     try {
-      const accessToken = getAccessToken()
-      const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${id}/`, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-          'Authorization': `Bearer ${accessToken}`
-        },
-        body: JSON.stringify(updated),
-      });
+      const accessToken = getAccessToken();
+      const response = await fetch(
+        `https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${id}/`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(updated),
+        }
+      );
 
       if (response.ok) {
         setShowSaveToast(true);
@@ -176,14 +187,14 @@ const ProductPage = () => {
         {showSaveToast && (
           <Toast
             color="green"
-            message="Product updated successfully!"
+            message="Order updated successfully!"
             onClose={() => setShowSaveToast(false)}
           />
         )}
         {showDeleteToast && (
           <Toast
             color="red"
-            message="Product successfully deleted!"
+            message="Order successfully deleted!"
             onClose={() => setShowDeleteToast(false)}
           />
         )}
