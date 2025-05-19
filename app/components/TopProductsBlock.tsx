@@ -10,7 +10,6 @@ const countProductOrders = (orders: Order[], products: Product[]) => {
   const counts: { [key: string]: { count: number; id: number } } = {};
 
   orders.forEach((order) => {
-    console.log(order)
     order.products.forEach((productId) => {
       const product = products.find((p) => p.id === productId);
       if (!product) return;
@@ -28,37 +27,43 @@ const countProductOrders = (orders: Order[], products: Product[]) => {
     .sort((a, b) => b.count - a.count);
 };
 
-
 const TopProductsBlock = () => {
-    const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const [topProducts, setTopProducts] = useState<
     { name: string; count: number; id: number }[]
   >([]);
 
-  const [, setProducts] = useState();
+  const [, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const orderResponse = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/");
+        const orderResponse = await fetch(
+          "https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/"
+        );
         const orderData = await orderResponse.json();
-        const productResponse = await fetch("https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/");
+
+        const productResponse = await fetch(
+          "https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/"
+        );
         const productData = await productResponse.json();
         setProducts(productData.results);
 
-        const ordersByProduct = countProductOrders(orderData.results, productData.results);
+        const ordersByProduct = countProductOrders(
+          orderData.results,
+          productData.results
+        );
         setTopProducts(ordersByProduct.slice(0, 3));
-
       } catch (error) {
         console.log(error);
-      } finally{
-        setLoading(false)
+      } finally {
+        setLoading(false);
       }
     };
     fetchOrders();
   }, []);
 
-  if(loading) return <Loading />
+  if (loading) return <Loading />;
 
   return (
     <div className="p-3 flex flex-col justify-between rounded-lg bg-gray-100 h-50">
