@@ -11,7 +11,7 @@ interface Props {
 const ProductCard = ({ item }: Props) => {
 
   if (!item) return <Loading />
-  const imageUrl = item.product?.images[0]?.url ?? "";
+  const imageUrl = item.product?.images?.[0]?.url ?? "";
 
   return (
     <div className="my-10">
