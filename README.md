@@ -1,33 +1,57 @@
 # 🧾 E-commerce Dashboard Frontend (Next.js + Tailwind CSS)
 
-This is the **dashboard frontend** for an e-commerce application built using **Next.js 13+ (App Router)** and **Tailwind CSS**. It communicates with the Django REST API backend to handle user authentication, view product data, manage orders, and more.
+This is a **fully functional admin dashboard** for managing an e-commerce platform. Built with **Next.js 13+ (App Router)** and **Tailwind CSS**, it serves as the internal tool for store administrators to handle key business operations like managing products, processing orders, and viewing customer messages.
+
+The frontend communicates with a Django REST API backend. Admin users can log in, view data, and perform full **CRUD operations** on products and orders.
+
+---
 
 ## 🚀 Features
 
-- ✅ JWT Auth via HttpOnly cookies
-- ✅ Protected routes (dashboard access only when logged in)
-- ✅ Responsive UI with Tailwind CSS
-- ✅ Sidebar navigation layout
-- ✅ Login/logout functionality
-- ✅ Auto refresh of JWT on expiry
-- ✅ Fetch products, orders, and messages from API
+- ✅ Secure login/logout using JWT (HttpOnly cookies)  
+- ✅ Protected routes with automatic access token refreshing  
+- ✅ Full **CRUD functionality** for:
+  - 🛍️ Products (add, edit, delete, list)
+  - 📦 Orders (update status, view history, delete)  
+- ✅ View and respond to customer messages  
+- ✅ Responsive UI layout with Tailwind CSS  
+- ✅ Sidebar navigation with active route highlighting  
+- ✅ Strikethrough discount pricing on product listings
+- ✅ Search and filtering** for products and orders
+- ✅ Charts and analytics** (e.g. sales trends, top-selling products)
+- ✅ Pagination for large product and order datasets
 
 ---
 
 ## 🧱 Tech Stack
 
-- **Next.js 13+ (App Router)**
-- **React 18**
-- **Tailwind CSS**
-- **TypeScript**
-- **JWT Auth (via cookies)**
-- **Vite Dev Server or Next.js built-in**
+- **Next.js 13+ (App Router)**  
+- **React 18**  
+- **Tailwind CSS**  
+- **TypeScript**  
+- **JWT Auth (via cookies)**  
+- **Next.js built-in**
 
 ---
 
 ## 👨‍💻 Mock User
-- **Username: mock_user**
-- **Password: password12345678**
 
-## Contact Info
-- Email: gwmccart3@gmail.com
+Use the following test credentials to explore the dashboard:
+
+- **Username:** `mock_user`  
+- **Password:** `password12345678`
+
+---
+
+## 🔜 Next Features to Implement
+
+- [ ] **Mobile responsiveness improvements** (currently not fully mobile-friendly)  
+- [ ] **Dark mode toggle**  
+- [ ] **User roles and permissions** (e.g. admin vs. staff)  
+- [ ] **Real-time notifications** for new orders or messages, and reply functionality
+- [ ] **Better chart design** to improve UI experience
+
+---
+
+## 📬 Contact Info
+- Email: Gary McCart
