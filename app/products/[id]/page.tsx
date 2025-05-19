@@ -6,6 +6,7 @@ import { Product } from "@/app/types/product";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { getAccessToken } from "@/app/utils/auth";
 
 const ProductPage = () => {
   const [product, setProduct] = useState<Product>();
@@ -64,18 +65,18 @@ const ProductPage = () => {
   };
 
   const handleAddImage = () => {
-    console.log("Adding an image");
     setImages((prev) => [...prev, { url: "" }]);
   };
 
   const handleDeleteProduct = async() => {
-    console.log("Deleted product")
     try {
+      const accessToken = getAccessToken()
       const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/${id}/`, {
         method: "DELETE",
         credentials: "include",
         headers: {
           "Content-type": "application/json",
+          'Authorization': `Bearer ${accessToken}`
         },
       });
 
@@ -100,7 +101,6 @@ const ProductPage = () => {
     const confirmed = window.confirm(
       "Are you sure you want to edit this product?"
     );
-    console.log(id);
     if (!confirmed) return;
     const updated = {
       id: Number(id),
@@ -114,11 +114,13 @@ const ProductPage = () => {
       images: images,
     };
     try {
+      const accessToken = getAccessToken()
       const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/${id}/`, {
         method: "PUT",
         credentials: "include",
         headers: {
           "Content-type": "application/json",
+          'Authorization': `Bearer ${accessToken}`
         },
         body: JSON.stringify(updated),
       });

@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ProtectedRoute from "@/app/components/ProtextedRoute";
+import { getAccessToken } from "@/app/utils/auth";
 
 const ProductPage = () => {
   const [order, setOrder] = useState<Order>();
@@ -50,7 +51,6 @@ const ProductPage = () => {
       }
       try {
         const data = JSON.parse(text);
-        console.log(data);
         setOrder(data);
         setName(data.name);
         setEmail(data.email);
@@ -105,11 +105,13 @@ const ProductPage = () => {
     );
     if (!confirmed) return;
     try {
+      const accessToken = getAccessToken()
       const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${id}/`, {
         method: "DELETE",
         credentials: "include",
         headers: {
           "Content-type": "application/json",
+          'Authorization': `Bearer ${accessToken}`
         },
       });
       if (response.ok) {
@@ -129,7 +131,6 @@ const ProductPage = () => {
     const confirmed = window.confirm(
       "Are you sure you want to edit this order?"
     );
-    console.log(id);
     if (!confirmed) return;
     const updated = {
       id: Number(order?.id),
@@ -145,10 +146,12 @@ const ProductPage = () => {
       total: Number(total) || 0,
     };
     try {
+      const accessToken = getAccessToken()
       const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${id}/`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
+          'Authorization': `Bearer ${accessToken}`
         },
         body: JSON.stringify(updated),
       });

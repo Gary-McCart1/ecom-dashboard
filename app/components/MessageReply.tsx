@@ -27,7 +27,6 @@ const MessageReply = ({ id, setToggleReply }: Props) => {
         if (!text) throw new Error("No message found with that id");
         const data = await JSON.parse(text);
         if (!data) return;
-        console.log(data);
         setMessage(data);
         if (message) {
           setTo(message.email);

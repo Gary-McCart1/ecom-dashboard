@@ -1,13 +1,13 @@
 import React from "react";
 import { Message } from "../types/message";
 import Link from "next/link";
+import { getAccessToken } from "../utils/auth";
 
 interface Props {
   message: Message;
 }
 
 const messageRow = ({ message }: Props) => {
-
 
   const handleEditMessage = async() => {
     const updatedMessage = {
@@ -20,6 +20,7 @@ const messageRow = ({ message }: Props) => {
     };
 
     try {
+      const accessToken = getAccessToken()
       const response = await fetch(
         `https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/${message.id}/`,
         {
@@ -27,12 +28,13 @@ const messageRow = ({ message }: Props) => {
           credentials: "include",
           headers: {
             "Content-type": "application/json",
+            'Authorization': `Bearer ${accessToken}`
           },
           body: JSON.stringify(updatedMessage),
         }
       );
-      if (response.ok){
-        console.log("Message has been read")
+      if (!response.ok){
+        console.log(response)
       }
     } catch (error) {
       console.log(error);

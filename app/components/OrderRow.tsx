@@ -6,15 +6,18 @@ import UpdateOrder from "./UpdateOrder";
 import StatusBadge from "./StatusBadge";
 import Link from "next/link";
 import getCookie from "../utils/getCookie";
+import { getAccessToken } from "../utils/auth";
 
 interface Props {
   orderId: number;
 }
+const accessToken = getAccessToken()
 
 const csrfToken = getCookie("csrftoken");
 
 const headers: Record<string, string> = {
   "Content-Type": "application/json",
+  'Authorization': `Bearer ${accessToken}`
 };
 
 if (csrfToken) {

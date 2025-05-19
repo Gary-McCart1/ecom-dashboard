@@ -2,6 +2,7 @@
 
 import EditImage from "@/app/components/EditImage";
 import Toast from "@/app/components/Toast";
+import { getAccessToken } from "@/app/utils/auth";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -23,7 +24,6 @@ const AddProductPage = () => {
   const router = useRouter();
 
   const handleAddImage = () => {
-    console.log("Adding an image");
     setImages((prev) => [...prev, { url: "" }]);
   };
 
@@ -48,13 +48,14 @@ const AddProductPage = () => {
       originalPrice: Number(originalPrice),
       rating: rating,
     };
-    console.log(JSON.stringify(newProduct));
     try {
+      const accessToken = getAccessToken()
       const response = await fetch(`https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/`, {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${accessToken}`
         },
         body: JSON.stringify(newProduct),
       });

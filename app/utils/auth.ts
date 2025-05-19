@@ -25,7 +25,6 @@ export async function loginUser(username: string, password: string): Promise<boo
 
 export async function logoutUser(): Promise<boolean> {
     const accessToken = getAccessToken();
-    console.log("Access Token for Logout:", accessToken);
     const refreshToken = getRefreshToken();
 
     if (!accessToken) {

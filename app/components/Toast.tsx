@@ -12,8 +12,6 @@ const Toast: React.FC<ToastProps> = ({ message, onClose, color }) => {
     return () => clearTimeout(timer);
   }, [onClose]);
 
-  console.log(color);
-
   return (
     <div
       className={`fixed bottom-4 right-4 ${

@@ -7,14 +7,7 @@ const Logout = () => {
   const { logout } = useAuth(); // Use the logout function from the context
 
   const handleLogout = async () => {
-    const success = await logout();
-    if (success) {
-      // The logout function in AuthContext handles state update and redirection
-      console.log("Logout successful");
-    } else {
-      console.error("Logout failed");
-      // Optionally display an error message to the user
-    }
+    await logout();
   };
 
   return (

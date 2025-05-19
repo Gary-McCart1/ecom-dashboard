@@ -8,7 +8,6 @@ interface Props {
 }
 
 const ProductCard = ({ item }: Props) => {
-  console.log(item);
 
   return (
     <div className="my-10">
