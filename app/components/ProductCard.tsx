@@ -40,10 +40,10 @@ const ProductCard = ({ item }: Props) => {
         <figure>
           <Image
             src={product.images[0].url}
-            width={100}
-            height={100}
+            width={150}
+            height={150}
             alt={product.name}
-            className="object-cover"
+            className="object-contain"
           />
         </figure>
         <div className="card-body">
