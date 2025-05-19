@@ -1,5 +1,9 @@
 # 🧾 E-commerce Dashboard Frontend (Next.js + Tailwind CSS)
 
+Website URL: https://ecom-dashboard-git-new-main-garys-projects-0f4d54e0.vercel.app/
+
+Youtube Demo Link: 
+
 This is a **fully functional admin dashboard** for managing an e-commerce platform. Built with **Next.js 13+ (App Router)** and **Tailwind CSS**, it serves as the internal tool for store administrators to handle key business operations like managing products, processing orders, and viewing customer messages.
 
 The frontend communicates with a Django REST API backend. Admin users can log in, view data, and perform full **CRUD operations** on products and orders.
