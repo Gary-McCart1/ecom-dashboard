@@ -6,13 +6,15 @@ import { Order } from "../types/order";
 import { Product } from "../types/product";
 import Loading from "../loading";
 
-const countProductOrders = (orders: Order[], products: Product[]) => {
+// Local override type: same as Order, but products are full Product[] instead of number[]
+type OrderWithProducts = Omit<Order, "products"> & { products: Product[] };
+
+const countProductOrders = (orders: OrderWithProducts[]) => {
   const counts: { [key: string]: { count: number; id: number } } = {};
 
   orders.forEach((order) => {
-    order.products.forEach((productId) => {
-      const product = products.find((p) => p.id === productId);
-      if (!product) return;
+    order.products.forEach((product) => {
+      if (!product || typeof product !== "object") return;
 
       if (!counts[product.name]) {
         counts[product.name] = { count: 1, id: product.id };
@@ -33,8 +35,6 @@ const TopProductsBlock = () => {
     { name: string; count: number; id: number }[]
   >([]);
 
-  const [, setProducts] = useState<Product[]>([]);
-
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -42,18 +42,16 @@ const TopProductsBlock = () => {
           "https://foamhead-a8f24bda0c5b.herokuapp.com/api/orders/"
         );
         const orderData = await orderResponse.json();
-        console.log(orderData.results)
-        const productResponse = await fetch(
-          "https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/"
-        );
-        const productData = await productResponse.json();
-        console.log(productData.results)
-        setProducts(productData.results);
 
-        const ordersByProduct = countProductOrders(
-          orderData.results,
-          productData.results
-        );
+        // const productResponse = await fetch(
+        //   "https://foamhead-a8f24bda0c5b.herokuapp.com/api/products/"
+        // );
+        // const productData = await productResponse.json();
+
+        // Cast to match actual structure (products are full objects)
+        const ordersWithProducts = orderData.results as OrderWithProducts[];
+
+        const ordersByProduct = countProductOrders(ordersWithProducts);
         setTopProducts(ordersByProduct.slice(0, 3));
       } catch (error) {
         console.log(error);
@@ -61,6 +59,7 @@ const TopProductsBlock = () => {
         setLoading(false);
       }
     };
+
     fetchOrders();
   }, []);
 
