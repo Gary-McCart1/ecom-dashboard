@@ -51,7 +51,6 @@ const ProductPage = () => {
       }
       try {
         const data = JSON.parse(text);
-        console.log(data)
         setOrder(data);
         setName(data.name);
         setEmail(data.email);
