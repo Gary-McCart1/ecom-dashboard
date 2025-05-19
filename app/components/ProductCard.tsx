@@ -42,7 +42,8 @@ const ProductCard = ({ item }: Props) => {
             src={product.images[0].url}
             width={100}
             height={100}
-            alt="Movie"
+            alt={product.name}
+            className="object-cover"
           />
         </figure>
         <div className="card-body">
