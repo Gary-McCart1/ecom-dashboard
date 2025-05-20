@@ -2,7 +2,7 @@
 
 Website URL: https://ecom-dashboard-pi.vercel.app/
 
-Youtube Demo Link: 
+Youtube Demo Link: https://youtu.be/lcQKj0U0KVM
 
 This is a **fully functional admin dashboard** for managing an e-commerce platform. Built with **Next.js 13+ (App Router)** and **Tailwind CSS**, it serves as the internal tool for store administrators to handle key business operations like managing products, processing orders, and viewing customer messages.
 
